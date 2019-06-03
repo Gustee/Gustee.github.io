@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-03T05:17:22.640Z</updated>
+  <updated>2019-06-03T08:04:35.591Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>集成学习</title>
+    <link href="http://yoursite.com/%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/集成学习/</id>
+    <published>2019-06-03T07:48:12.000Z</published>
+    <updated>2019-06-03T08:04:35.591Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="集成学习"><a href="#集成学习" class="headerlink" title="集成学习"></a>集成学习</h1><p>集成学习主要分为bossting和bagging</p><h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>Boosting方法训练基分类器时采用串行的方式，各个基分类器之间有依赖。<br>Boosting的思想是每一个基分类器纠正前一个基分类器的错误。根据纠正的方式的不同，就有了不同的boosting算法。比如通过调整样本权重分布训练基分类器，对应的Adaboost。通过拟合前一个基分类器与目标值损失的负梯度<code>[注：当损失函数是平方损失时，才能叫残差，一遍的损失是残差的近视]</code>来学习下一个基分类器的方法就是GBDT。</p><h2 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h2><p>与boosting的串行训练的方式不同，bagging在训练过程中，各个基分类器之前无强依赖，可以进行并行训练，为了让基分类器之间互相独立，将训练集分为若干个子集，每个基分类器进行单独的学习，由于分类器之间存在差异，在最终决策时，每个个体单独预测，然后通过投票或者平均的方式做出最终的决策</p><h2 id="从偏差和方差的角度看boosting和bagging"><a href="#从偏差和方差的角度看boosting和bagging" class="headerlink" title="从偏差和方差的角度看boosting和bagging"></a>从偏差和方差的角度看boosting和bagging</h2><p>基分类器一般都是错误率较高的若分类器。基分类器的误差是偏差和方差之和，偏差主要是由于分类器的表达能力有限导致的，表现在训练误差不收敛。方差是由于分类器对样本分布过于敏感，产生过拟合<br>Boosting方法通过逐步聚焦于基分类器分错的样本，减少集成分类器的偏差，bagging方法则采取分而治之的方法，通过对训练样本多次采样，并行训练多个不同模型，然后综合，来减少集成分类器的方差。</p><h2 id="bagging减小方差的证明"><a href="#bagging减小方差的证明" class="headerlink" title="bagging减小方差的证明"></a>bagging减小方差的证明</h2><p>假设有n个随机变量，方差为$ \sigma ^2 $，两两变量之间的相关性为$ x $，则有n个随机变量的均值为$\frac{1}{n}\sum x_i$，方差为$ \rho \cdot \sigma ^2 + (1-\rho) \cdot \sigma ^2 / n $<br>在随机变量完全独立的情况下，n个随机变量的方差为$\frac{1}{n}\sigma ^2$，则方差减小到原来的$\frac{1}{n}$<br>证明如下：<br><img src="/集成学习/pic.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;集成学习&quot;&gt;&lt;a href=&quot;#集成学习&quot; class=&quot;headerlink&quot; title=&quot;集成学习&quot;&gt;&lt;/a&gt;集成学习&lt;/h1&gt;&lt;p&gt;集成学习主要分为bossting和bagging&lt;/p&gt;
+&lt;h2 id=&quot;Boosting&quot;&gt;&lt;a href=&quot;#Boost
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>梯度下降法及牛顿法详解</title>
