@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 梯度下降法及牛顿法详解 · 菜鸡Gustee的挣扎</title><meta name="description" content="梯度下降法及牛顿法详解 - Gustee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="菜鸡Gustee的挣扎"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/gustee" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">梯度下降法及牛顿法详解</h1><div class="post-info">Jun 3, 2019</div><div class="post-content"><script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+        }
+    });
+</script>
+
+
+
+<h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><p>对于函数$f:R^n\rightarrow R$，输入为$\vec x = (x_1, x_2, x_3, \dots,x_n)^T$</p>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>定义函数的梯度为：</p>
+<script type="math/tex; mode=display">
+\nabla_{\vec x} f(\vec x) = \left(\frac{\partial f(\vec x)}{x_1}, \frac{\partial f(\vec x)}{x_2},\dots, \frac{\partial f(\vec x)}{x_n}\right)^T</script><h3 id="方向导数"><a href="#方向导数" class="headerlink" title="方向导数"></a>方向导数</h3><p>方向导数：一个标量场在某点沿着某个向量方向上的方向导数，描绘了该点附近标量场沿着该向量方向变动时的瞬时变化率。<br>沿着方向$\vec u$的方向导数表示在$\vec x$处，沿着方向$\vec u$，函数的增长率，定义为：</p>
+<script type="math/tex; mode=display">
+\lim_{\alpha \rightarrow 0}\frac{f(\vec x + \alpha \vec u) - f(\vec x)}{\alpha},其中\vec u为单位向量
+\\ =\vec u^T \nabla_{\vec x}f(\vec x)</script><p><code>梯度为一个矢量，方向导数为一个标量</code></p>
+<h3 id="梯度下降法-1"><a href="#梯度下降法-1" class="headerlink" title="梯度下降法"></a>梯度下降法</h3><p>为了最小化$f$，则需要寻找一个方向$\vec u$，沿着该方向，函数减少的速度最快，即：</p>
+<script type="math/tex; mode=display">
+\max \limits_{\vec u}-\vec u^T \nabla_{\vec x}f(\vec x) \\
+s.t.||\vec u||_2=1</script><p>即：</p>
+<script type="math/tex; mode=display">
+\min \limits_{\vec u}\vec u^T \nabla_{\vec x}f(\vec x) \\
+s.t.||\vec u||_2=1</script><p>设$\vec u$与梯度的夹角为$\theta$，则所求的$\theta$为：</p>
+<script type="math/tex; mode=display">
+\theta ^*=\min \limits_\theta||\vec u||_2||\nabla_{\vec x}f(\vec x)||_2cos\theta</script><p>又因为$||\vec u||_2=1$,且夹角$\theta$与梯度的模长无关</p>
+<script type="math/tex; mode=display">
+\theta ^*=\min cos\theta</script><p>则当$\theta=π$时，即当$\vec u$为沿着梯度的反方向时，函数值减小的速率最快。</p>
+<p>梯度下降求解过程：<br><img src="/梯度下降法及牛顿法详解/GD.png" alt="GD"><br><code>学习率的选择方法:</code></p>
+<ul>
+<li>选择一个小的正常数</li>
+<li>线性搜索，给定一个学习率集合，每次迭代选择使得目标函数下降最大的学习率</li>
+<li>最速下降法。</li>
+</ul>
+<p><code>当目标函数为凸函数时，梯度下降法的解为全局最优解</code></p>
+<h2 id="牛顿法"><a href="#牛顿法" class="headerlink" title="牛顿法"></a>牛顿法</h2><h3 id="海森矩阵"><a href="#海森矩阵" class="headerlink" title="海森矩阵"></a>海森矩阵</h3><p>当函数的输入为多维时，定义海森矩阵：<br><img src="/梯度下降法及牛顿法详解/HS.png" alt="HS"><br>观察矩阵结构可以看出，当函数的二阶偏导数连续时，海森矩阵是对称的。</p>
+<h3 id="梯度下降法的缺点"><a href="#梯度下降法的缺点" class="headerlink" title="梯度下降法的缺点"></a>梯度下降法的缺点</h3><p>将$f(\vec x)$在$x_0$出泰勒展开：</p>
+<script type="math/tex; mode=display">
+f ( \vec { \mathbf { x } } ) \approx f \left( \vec{ \mathbf { x } } _ { 0 } \right) + \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } _ { 0 } \right) ^ { T } \vec{ \mathbf { g } } + \frac { 1 } { 2 } \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } _ { 0 } \right) ^ { T } \mathbf { H } \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } _ { 0 } \right)</script><p>其中$\vec g$为$\vec x_0$处的梯度，$H$为$\vec x_0$处的海森矩阵。<br>根据梯度下降法：$\vec{ \mathbf { x } } ^ { k+1 } = \vec{ \mathbf { x } }^{k} - \epsilon \vec g$<br>根据泰勒公式：</p>
+<script type="math/tex; mode=display">
+f ( \vec { \mathbf { x } }^{<K+1>} ) \approx f \left( \vec{ \mathbf { x } } ^ { k } \right) - \epsilon \vec{ \mathbf { g } } ^ { T } \vec{ \mathbf { g } } + \frac { 1 } { 2 } \epsilon ^ { 2 } \vec{ \mathbf { g } } ^ { T } \mathbf { H } \vec{ \mathrm { g } }</script><p>观察上式，若$\frac { 1 } { 2 } \epsilon ^ { 2 } \vec{ \mathbf { g } } ^ { T } \mathbf { H } \vec{ \mathrm { g } }$很大时，$f ( \vec { \mathbf { x } }^{ K+1 } ) &gt; f ( \vec { \mathbf { x } }^{  K } )$，此时沿着负梯度，函数值反而在增大，则：</p>
+<ul>
+<li>如果 $\epsilon ^ { 2 } \vec{ \mathbf { g } } ^ { T } \mathbf { H } \vec{ \mathrm { g } } &lt; 0$，则无论$\epsilon$取多大的值，函数值都是持续减小的</li>
+<li>如果 $\epsilon ^ { 2 } \vec{ \mathbf { g } } ^ { T } \mathbf { H } \vec{ \mathrm { g } } &gt; 0$，则只有当$\epsilon$很小时，函数值才会持续减小。</li>
+</ul>
+<h3 id="牛顿法-1"><a href="#牛顿法-1" class="headerlink" title="牛顿法"></a>牛顿法</h3><p>牛顿法就是在梯度下降中加入和目标函数二阶导数的信息。<br>设$\vec x$第k次的迭代值为$\vec x ^ { k }$,第k+1次的迭代值为$\vec x^{ k+1 }$同样对目标函数在$\vec x_k$泰勒展开：</p>
+<script type="math/tex; mode=display">
+f ( \vec { \mathbf { x } } ) \approx f \left( \vec{ \mathbf { x } } ^ { \ <k> } \right) + \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } ^ { \ <k> } \right) ^ { T } \vec{ \mathbf { g }_{k} } + \frac { 1 } { 2 } \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } ^ { \ <k> } \right) ^ { T } \mathbf { H }_{k} \left( \vec{ \mathbf { x } } - \vec{ \mathbf { x } } ^ { \ <k> } \right)</script><p>当$\vec x$为极值，则满足$\frac{\partial f(\vec x)}{\partial \vec x}=\vec 0$，若经过k+1次迭代后求得极值，则满足$\frac{\partial f(\vec x^{,k+1})}{\partial \vec x^{k+1}}=\vec 0$，带入上式有：</p>
+<script type="math/tex; mode=display">
+\vec g_k + \vec H_k \left(\vec x^{\ <k+1>}-\vec x^{\ <k>}\right)=\vec 0</script><p>最后求得:</p>
+<script type="math/tex; mode=display">
+\vec x^{\ <k+1>} = \vec x^{\ <k>} - \vec H_k^{-1} \cdot \vec g_k</script><p>牛顿法迭代过程</p>
+<p><img src="/梯度下降法及牛顿法详解/ND.png" alt="ND"><br>牛顿法的缺点：</p>
+<ul>
+<li>计算海森矩阵的逆开销较大</li>
+<li>当位于鞍点附近时，牛顿法效果很差，因为牛顿法会主动跳入鞍点。</li>
+</ul>
+<h3 id="拟牛顿法"><a href="#拟牛顿法" class="headerlink" title="拟牛顿法"></a>拟牛顿法</h3><p>在牛顿法的迭代中，需要计算海森矩阵的逆矩阵$H^{-1}$，这一计算比较复杂。可以考虑用一个矩阵$G$来代替海森矩阵的逆矩阵。<br>矩阵$G$需要满足的条件:</p>
+<ul>
+<li>正定</li>
+<li>满足拟牛顿条件<br>$\lfet( \vec g<em>{k+1}  - \vec g</em>{k} \right) = H_k \cdot \left(\vec x^{ k+1 }-\vec x^{ k }\right)$</li>
+</ul>
+<p>常见的逆牛顿算法</p>
+<ul>
+<li>DFP算法</li>
+<li>BFGS算法</li>
+<li>Broyden类算法</li>
+</ul>
+<p>参考：<br>《统计学习方法》</p>
+</div></article></div></main><footer><div class="paginator"><a href="/二分查找及其应用/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2019 <a href="http://yoursite.com">Gustee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
